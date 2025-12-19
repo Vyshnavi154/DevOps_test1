@@ -2,6 +2,21 @@ name: variable_usecase
 
 on:
   workflow_dispatch:
+    inputs:
+      variable1:
+        description: Enter the variable
+        type: string
+        default: devops_var
+        required: true
+      deplloy_env:
+        description: Enter the target env
+        type: choice
+          options: 
+            - qa
+            - prod
+            - pre-prod
+          default: qa
+        
   push:
     branches:
       - master
@@ -11,12 +26,5 @@ env:
 
 jobs:
   testing_variables:
-    runs-on: ubuntu-latest
-    env:
-      os: Linux
-    steps:
-      - name : Varible_check
-        run : echo "My name is $name" >> $GITHUB_STEP_SUMMARY
-              echo "My OS is $os" >> $GITHUB_STEP_SUMMARY
-              echo "My repo level var key-val pair is ${{vars.VAR_NAME}}" >> $GITHUB_STEP_SUMMARY
-              echo "My password ${{secrets.PASSWD}}" >> $GITHUB_STEP_SUMMARY
+    echo "${{github.repository}}"
+    
