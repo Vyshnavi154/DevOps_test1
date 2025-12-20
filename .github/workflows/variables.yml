@@ -58,6 +58,7 @@ jobs:
           echo "servername=S1" >> $GITHUB_ENV
         else
           echo "servername=s2" >> $GITHUB_ENV
+        fi
      - name: print
        run: echo "$servername"
         
