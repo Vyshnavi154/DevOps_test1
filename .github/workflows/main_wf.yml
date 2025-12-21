@@ -1,0 +1,27 @@
+name: main_wf
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        required: true
+        type: string
+        default: '8'
+      environment:
+        required: true
+        type: string
+        default: 'staging'
+jobs:
+  calling_ci:
+    uses: ./.github/workflows/ci.yml
+    with:
+      input: ${{ github.event.inputs.version}}
+      evnironment: $ {{ github.event.inputs.environment }}
+  calling_cd:
+    if: success()
+    needs: calling_ci
+    uses: ./.github/workflows/cd.yml
+    with: 
+      evnironment: $ {{ github.event.inputs.environment }}
+      
+        
+        
