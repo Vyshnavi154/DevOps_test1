@@ -1,4 +1,4 @@
-name: main_wfile
+name: mainworkflow
 on:
   workflow_dispatch:
     inputs:
