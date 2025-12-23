@@ -28,6 +28,7 @@ jobs:
         run: |
           mvn clean verify \
           org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
+          -Dsonar.branch.name=master
           -Dsonar.projectKey=vyshnavi154 \
           -Dsonar.organization=Vyshnavi154 \
           -Dsonar.host.url=https://sonarcloud.io \
