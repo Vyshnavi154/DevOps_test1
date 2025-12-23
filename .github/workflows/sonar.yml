@@ -30,7 +30,7 @@ jobs:
           org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
           -Dsonar.projectKey=vyshnavi154 \
           -Dsonar.organization=vyshnavi154 \
-          -Dsonar.branch.name=main \
+          -Dsonar.branch.name=master \
           -Dsonar.host.url=https://sonarcloud.io \
-          -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+          -Dsonar.login=${{ secrets.SONAR_SECRET }}
 
