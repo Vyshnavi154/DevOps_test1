@@ -2,6 +2,8 @@ name: SonarCloud Connectivity Check
 
 on:
   workflow_dispatch:   # manual trigger
+  pull_request:
+    branches: [ master ]
   push:
     branches: [ master ]
 
