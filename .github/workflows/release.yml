@@ -33,9 +33,25 @@ jobs:
       - name: 🏗️ Build with Maven
         run: mvn clean install -DskipTests
 
+      - name: 📝 Manually Create settings.xml
+        run: |
+          mkdir -p ~/.m2
+          cat <<EOF > ~/.m2/settings.xml
+          <settings>
+            <servers>
+              <server>
+                <id>nexus-releases</id>
+                <username>${{ secrets.NEXUS_USERNAME }}</username>
+                <password>${{ secrets.NEXUS_PASSWORD }}</password>
+              </server>
+            </servers>
+          </settings>
+          EOF
+
       # 3. Deploy the artifact to Nexus (only for 'main' branch in this example)
       - name: 🚀 Deploy to Nexus Repository
         if: github.ref == 'refs/heads/master'
         # The 'deploy' goal uses the distributionManagement section in pom.xml
         # and the credentials injected by 'setup-java'
+        
         run: mvn deploy -DskipTests
