@@ -25,7 +25,7 @@ jobs:
           java-version: '17' # Choose your required Java version
           distribution: 'temurin'
           # CRITICAL STEP: Configure Maven to use Nexus credentials from secrets
-          server-id: nexus-releases # Matches the ID in pom.xml/settings.xml
+          server-id: nexus-snapshots # Matches the ID in pom.xml/settings.xml
           server-username: ${{ secrets.NEXUS_USERNAME }}
           server-password: ${{ secrets.NEXUS_PASSWORD }}
           
@@ -40,7 +40,7 @@ jobs:
           <settings>
             <servers>
               <server>
-                <id>nexus-releases</id>
+                <id>nexus-snapshots</id>
                 <username>${{ secrets.NEXUS_USERNAME }}</username>
                 <password>${{ secrets.NEXUS_PASSWORD }}</password>
               </server>
