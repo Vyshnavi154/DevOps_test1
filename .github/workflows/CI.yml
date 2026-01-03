@@ -1,6 +1,5 @@
 name: CI demo
 on:
-  
   workflow_dispatch:
     inputs:
       Target_env:
