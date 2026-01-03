@@ -1,11 +1,7 @@
 name: CI demo
 on:
   workflow_dispatch:
-    inputs:
-      Target_env:
-        description: "Enter target server IP or hostname"
-        required: true
-        type: string
+  
 
 
       
