@@ -1,9 +1,6 @@
 name: CI demo
 on:
-  push:
-    branches: [ 'master','stagging','developer','pre-prod','feature' ]
-  pull_request:
-    branches: [ 'master','stagging','developer','pre-prod','feature' ]
+  
   workflow_dispatch:
     inputs:
       Target_env:
@@ -80,7 +77,11 @@ jobs:
         run: |
            curl -u ${{ secrets.NEXUS_USERNAME }}:${{ secrets.NEXUS_PASSWORD }} -o World-war.war http://3.110.123.178:8081/repository/maven-releases/com/helloworld/app/World-war/1.2/World-war-1.2.war
 
-        
+      - name: Deply to Target Env
+        if: success()
+        run: | 
+          scp -o StrictHostKeyChecking=no World-war.war ubuntu@${{ github.inputs.Target_env }}:/opt/tomcat/webapp/
+          
       
        
         
