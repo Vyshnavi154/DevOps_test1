@@ -39,6 +39,20 @@ jobs:
         run: | 
          mvn clean package 
          echo "Package installed" >> $GITHUB_STEP_SUMMARY
+      - name: Store Artifact in Artifact repo NEXUS
+        run: |
+          mkdir -p ~/.m2
+          cat <<EOF > ~/.m2/settings.xml
+          <settings>
+            <servers>
+              <server>
+                <id>nexus-snapshots</id>
+                <username>${{ secrets.NEXUS_USERNAME }}</username>
+                <password>${{ secrets.NEXUS_PASSWORD }}</password>
+              </server>
+            </servers>
+          </settings>
+          EOF
           
        
         
