@@ -1,9 +1,9 @@
 name: CI demo
 on:
   push:
-    branches: [ 'master','stagging','developer','pre-prod' ]
+    branches: [ 'master','stagging','developer','pre-prod','feature' ]
   pull_request:
-    branches: [ 'master','stagging','developer','pre-prod' ]
+    branches: [ 'master','stagging','developer','pre-prod','feature' ]
 jobs:
   CI-job:
     runs-on: ubuntu-latest
