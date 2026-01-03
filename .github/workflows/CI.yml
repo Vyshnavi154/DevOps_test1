@@ -75,7 +75,7 @@ jobs:
       - name: Deply to Target Env
         if: success()
         run: | 
-          scp -o StrictHostKeyChecking=no World-war.war ubuntu@${{ github.inputs.Target_env }}:/opt/tomcat/webapps/
+          scp -o StrictHostKeyChecking=no World-war.war ubuntu@13.126.68.212:/opt/tomcat/webapps/
           
       
        
