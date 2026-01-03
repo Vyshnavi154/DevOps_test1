@@ -22,20 +22,8 @@ jobs:
             -Dsonar.organization=vyshnavi154
             -Dsonar.host.url=https://sonarcloud.io
             -Dsonar.branch.name=${{ github.ref_name }}
-            
-      - name: Check Quality status
-        id: result
-        uses: SonarSource/sonarqube-quality-gate-action@v1.1.0
-        env:
-         SONAR_TOKEN: ${{ secrets.NEW_TOKEN }}
-
-      - name: Result Passed
-        if: steps.result.outputs.quality_gate_status=='PASSED'
-        run: echo "QUALITY GATE PASSED" >> $GITHUB_STEP_SUMMARY
-      - name: Result Failed
-        if: steps.result.outputs.quality_gate_status=='FAILED'
-        run: echo "QUALITY GATE FAILED" >> $GITHUB_STEP_SUMMARY
-      
+            -Dsonar.qualitygate.wait=true
+     
         
         
     
