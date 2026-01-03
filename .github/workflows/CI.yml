@@ -59,6 +59,9 @@ jobs:
           </settings>
           EOF
           
+      - name: Deploy in Nexus
+        run: mvn deploy
+          
        
         
         
