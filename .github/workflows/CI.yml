@@ -23,7 +23,13 @@ jobs:
             -Dsonar.host.url=https://sonarcloud.io
             -Dsonar.branch.name=${{ github.ref_name }}
             -Dsonar.qualitygate.wait=true
-      
+      - name: Deploy
+        if: success()   # runs ONLY if Quality Gate PASSED
+        run: echo "🚀 Deploying..."
+
+      - name: Stop Pipeline
+        if: failure()   # runs ONLY if Quality Gate FAILED
+        run: echo "❌ Quality Gate FAILED" >> $GITHUB_STEP_SUMMARY
         
         
     
