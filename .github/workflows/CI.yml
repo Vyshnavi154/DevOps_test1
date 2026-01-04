@@ -98,11 +98,10 @@ jobs:
       with:
          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-    - name: clear the deply dir
-      run: 
-       if [ -d deploy ]; then 
-       rm -r deploy
-       fi
+ 
+    - name: Clean deploy directory
+      run: rm -rf deploy
+
     - name: Download Artifact
       uses: actions/download-artifact@v4
       with:
