@@ -31,19 +31,22 @@ jobs:
       # - name: Stop Pipeline
       #   if: failure()   # runs ONLY if Quality Gate FAILED
       #   run: echo "❌ Quality Gate FAILED" >> $GITHUB_STEP_SUMMARY
+      
       - name: install dependecies
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
+          
       - name: Build Artifact
         run: | 
          mvn clean package 
          echo "Package installed" >> $GITHUB_STEP_SUMMARY
+         
       - name: Store Artifact in Artifact repo NEXUS
         run: |
           mkdir -p ~/.m2
-          cat <<EOF > ~/.m2/settings.xml
+          cat <<EOF > ~/.m2/settings.xml  
           <settings>
             <servers>
               <server>
@@ -68,23 +71,18 @@ jobs:
   CD-job:
     runs-on: ubuntu-latest
     needs: CI-job
+
     steps:
-      - name: Download artifact from Nexus
-        if: success()  
-
-        run: |
-           curl -u ${{ secrets.NEXUS_USERNAME }}:${{ secrets.NEXUS_PASSWORD }} -o World-war.war http://13.232.155.18:8081/repository/maven-releases/com/helloworld/app/World-war/1.2/World-war-1.2.war
-
-      - name: Setup SSH
-        uses: webfactory/ssh-agent@v0.9.0
-        with:
+    - name: Setup SSH
+      uses: webfactory/ssh-agent@v0.9.0
+      with:
          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
 
-      - name: Deply to Target Env
+    - name: Deply to Target Env
         
-        run: | 
-          scp -o StrictHostKeyChecking=no World-war.war ubuntu@3.109.47.95:/opt/tomcat/webapps/
+      run: | 
+          scp -o StrictHostKeyChecking=no World-war-1.2.war ubuntu@3.109.47.95:/opt/tomcat/webapps/
         
           
       
