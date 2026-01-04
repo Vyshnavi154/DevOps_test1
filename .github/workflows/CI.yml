@@ -119,7 +119,7 @@ jobs:
         echo "Deployment successfull" >> $GITHUB_STEP_SUMMARY
        elif [ "${{ github.ref}}" ==  "refs/heads/developer" ]; then
         echo "Starting deployment"
-        scp -o StrictHostKeyChecking=no deploy/*.war ubuntu@3.109.47.95:/opt/tomcat/webapps/
+        scp -o StrictHostKeyChecking=no deploy/*.war ubuntu@13.232.155.18:/home/ubuntu/
         echo "Deployment successfull" >> $GITHUB_STEP_SUMMARY
         
         else echo "Not deployed"
