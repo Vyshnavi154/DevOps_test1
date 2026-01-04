@@ -4,6 +4,8 @@ on:
 
   push:
     branches: ['feature','developer','stagging','pre-prod']
+  pull_request:
+    branches: ['feature','developer','stagging','pre-prod']
     
 jobs:
   CI-job:
