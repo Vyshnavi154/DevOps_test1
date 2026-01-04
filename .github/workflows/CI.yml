@@ -39,13 +39,10 @@ jobs:
           distribution: 'temurin'
           
       - name: Build Artifact
+        
         run: | 
-         mvn clean package 
+         mvn clean package -Dproject.build.directory=target
          echo "Package installed" >> $GITHUB_STEP_SUMMARY
-         pwd >> $GITHUB_STEP_SUMMARY
-         ls -l >> $GITHUB_STEP_SUMMARY
-         cd target 
-         ls -l >> $GITHUB_STEP_SUMMARY
          
       # - name: Store Artifact in Artifact repo NEXUS
       #   run: |
@@ -86,8 +83,7 @@ jobs:
     - name: Deply to Target Env
         
       run: | 
-         cd DevOps_test1
-         ls -l >> $GITHUB_STEP_SUMMARY
+         
           scp -o StrictHostKeyChecking=no target/*.war ubuntu@3.109.47.95:/opt/tomcat/webapps/
         
           
