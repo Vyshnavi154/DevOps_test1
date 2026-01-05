@@ -83,11 +83,19 @@ jobs:
            </settings>
           EOF
           
-      - name: Bump version
+      - name: Minor release version bump and deploy
         run: |
-         mvn versions:set -DnewVersion=1.${{ github.run_number }}
-         mvn versions:commit
+         
 
+          CURRENT=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+          BASE=${CURRENT%-SNAPSHOT}
+
+          IFS='.' read MAJOR MINOR <<< "$BASE"
+          NEXT="$MAJOR.$((MINOR+1))"
+
+          mvn versions:set -DnewVersion=$NEXT
+          mvn versions:commit
+         
           
       - name: Deploy in Nexus
         if: always()
