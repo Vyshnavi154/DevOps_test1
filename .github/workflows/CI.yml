@@ -92,7 +92,7 @@ jobs:
           BASE=${CURRENT%-SNAPSHOT}
 
           IFS='.' read MAJOR MINOR <<< "$BASE"
-          NEXT="$MAJOR.$((MINOR+1))"
+          NEXT="$MAJOR.$((MINOR+1))-SNAPSHOT"
 
           mvn versions:set -DnewVersion=$NEXT
           mvn versions:commit
