@@ -108,24 +108,12 @@ jobs:
     if: always()
     runs-on: ubuntu-latest
     needs: CI-job
-      
     steps:
-    - name: set the ssh_key
-      run: | 
-       if [ "${{ github.ref}}" ==  "refs/heads/feature" ]; then
-       key=${{ secrets.SSH_PRIVATE_KEY }}
-       elif [ "${{ github.ref}}" ==  "refs/heads/developer" ]; then
-       key=${{ secrets.QA_ENV }}
-       else echo "KEY NOT FOUND"
-       fi
-    
     - name: Setup SSH
-     
-      
       uses: webfactory/ssh-agent@v0.9.0
       with:
    
-         ssh-private-key: $key
+         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
  
     - name: Clean deploy directory
