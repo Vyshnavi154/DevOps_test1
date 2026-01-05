@@ -113,9 +113,9 @@ jobs:
     - name: set the ssh_key
       run: | 
        if [ "${{ github.ref}}" ==  "refs/heads/feature" ]; then
-       key= ${{ secrets.SSH_PRIVATE_KEY }}
+       key=${{ secrets.SSH_PRIVATE_KEY }}
        elif [ "${{ github.ref}}" ==  "refs/heads/developer" ]; then
-       key= ${{ secrets.QA_ENV }}
+       key=${{ secrets.QA_ENV }}
        else echo "KEY NOT FOUND"
        fi
     
