@@ -114,7 +114,7 @@ jobs:
       uses: webfactory/ssh-agent@v0.9.0
       with:
    
-         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+         ssh-private-key: ${{ secrets.QA_ENV }}
 
  
     - name: Clean deploy directory
@@ -137,8 +137,8 @@ jobs:
         echo "Deployment successfull to Developer Env IP 3.109.47.95 " >> $GITHUB_STEP_SUMMARY
        elif [ "${{ github.ref}}" ==  "refs/heads/developer" ]; then
         echo "Starting deployment"
-        scp -o StrictHostKeyChecking=no deploy/*.war ubuntu@13.232.155.18:/home/ubuntu/
-        echo "Deployment successfull to QA Env IP 13.232.155.18 " >> $GITHUB_STEP_SUMMARY
+        scp -o StrictHostKeyChecking=no deploy/*.war ubuntu@65.0.45.10:/home/ubuntu/
+        echo "Deployment successfull to QA Env IP 65.0.45.10 " >> $GITHUB_STEP_SUMMARY
         
         else echo "Not deployed"
         fi
