@@ -117,6 +117,13 @@ jobs:
       with: 
        ssh-private-key: ${{ secrets.QA_ENV }}
 
+    - name: Setup SSH for Stagging branch
+      if: github.ref == 'refs/heads/stagging'
+      uses: webfactory/ssh-agent@v0.9.0
+      with: 
+       ssh-private-key: ${{ secrets.QA_ENV }}
+
+
       
        
  
@@ -142,6 +149,10 @@ jobs:
         echo "Starting deployment"
         scp -o StrictHostKeyChecking=no deploy/*.war ubuntu@65.0.45.10:/home/ubuntu/
         echo "Deployment successfull to QA Env IP 65.0.45.10 " >> $GITHUB_STEP_SUMMARY
+       elif [ "${{ github.ref}}" ==  "refs/heads/stagging" ]; then
+        echo "Starting deployment"
+        scp -o StrictHostKeyChecking=no deploy/*.war ubuntu@43.205.116.56:/home/ubuntu/
+        echo "Deployment successfull to Staggig Env IP 43.205.116.56 " >> $GITHUB_STEP_SUMMARY
 
         fi
         
