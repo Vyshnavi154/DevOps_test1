@@ -88,14 +88,9 @@ jobs:
         run: |
          
 
-          CURRENT=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
-          BASE=${CURRENT%-SNAPSHOT}
+          
+          mvn versions:set -DnewVersion=1.3-SNAPSHOT
 
-          IFS='.' read MAJOR MINOR <<< "$BASE"
-          NEXT="$MAJOR.$((MINOR+1))-SNAPSHOT"
-
-          mvn versions:set -DnewVersion=$NEXT
-          mvn versions:commit
           mvn clean deploy
 
          
@@ -155,7 +150,3 @@ jobs:
        
         
         
-    
-      
-      
-  
