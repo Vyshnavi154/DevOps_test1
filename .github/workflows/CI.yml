@@ -50,9 +50,32 @@ jobs:
          if [ -d target ]; then
          rm -r target
          fi
+
+      - name: Minor release version bump and deploy
+        if: always()
+        run: |
          
-         mvn clean package -Dproject.build.directory=target
-         echo "Artifact built" >> $GITHUB_STEP_SUMMARY
+
+          CURRENT=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+          BASE=${CURRENT%-SNAPSHOT}
+
+          IFS='.' read MAJOR MINOR <<< "$BASE"
+          NEXT="$MAJOR.$((MINOR+1))-SNAPSHOT"
+
+          mvn versions:set -DnewVersion=$NEXT
+          # Set a new snapshot version
+          
+
+          mvn versions:commit
+          
+
+         
+      - name: Build
+        run: |
+         
+            mvn clean package -Dproject.build.directory=target
+            echo "Artifact built" >> $GITHUB_STEP_SUMMARY
+            
          
          
       - name: Upload for CD
@@ -82,24 +105,10 @@ jobs:
              </servers>
            </settings>
           EOF
-          
-      - name: Minor release version bump and deploy
-        if: always()
-        run: |
-         
-
-          CURRENT=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
-          BASE=${CURRENT%-SNAPSHOT}
-
-          IFS='.' read MAJOR MINOR <<< "$BASE"
-          NEXT="$MAJOR.$((MINOR+1))-SNAPSHOT"
-
-          mvn versions:set -DnewVersion=$NEXT
-          mvn versions:commit
-          mvn clean deploy
-
-         
-          
+      
+      - name: deploy to nexus
+        run : mvn clean deploy
+      
      
 
 
