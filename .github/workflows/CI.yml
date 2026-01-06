@@ -111,10 +111,9 @@ jobs:
     steps:
     - name: Setup SSH
       uses: webfactory/ssh-agent@v0.9.0
-      with:
-   
-         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-
+      env:
+        DEV: ${{ secrets.SSH_PRIVATE_KEY }}
+        QA: ${{ secrets.QA_ENV }}
  
     - name: Clean deploy directory
       run: rm -rf deploy
@@ -132,8 +131,8 @@ jobs:
       run: | 
        if [ "${{ github.ref}}" ==  "refs/heads/feature" ]; then
         echo "Starting deployment"
-        scp -o StrictHostKeyChecking=no deploy/*.war ubuntu@3.109.47.95:/opt/tomcat/webapps/
-        echo "Deployment successfull to Developer Env IP 3.109.47.95 " >> $GITHUB_STEP_SUMMARY
+        scp -o StrictHostKeyChecking=no deploy/*.war ubuntu@43.205.116.56:/opt/tomcat/webapps/
+        echo "Deployment successfull to Developer Env IP 43.205.116.56 " >> $GITHUB_STEP_SUMMARY
        elif [ "${{ github.ref}}" ==  "refs/heads/developer" ]; then
         echo "Starting deployment"
         scp -o StrictHostKeyChecking=no deploy/*.war ubuntu@65.0.45.10:/home/ubuntu/
